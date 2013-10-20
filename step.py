@@ -42,15 +42,22 @@ def setStep(w1, w2, w3, w4):
     GPIO.output(coil_A_2_pin, w2)
     GPIO.output(coil_B_1_pin, w3)
     GPIO.output(coil_B_2_pin, w4)
+
+def off():
+    setStep(0,0,0,0)
  
 if __name__=='__main__':
     import sys
     delay = 2
     if len(sys.argv) == 2:
         rotate(float(delay) / 1000.0, int(sys.argv[1]))
+        off()
     else:
-        while True:
-            #delay = raw_input("Delay between steps (milliseconds)?")
-            steps = raw_input("How many steps? ")
-            rotate(float(delay) / 1000.0, int(steps))
+        try:
+            while True:
+                #delay = raw_input("Delay between steps (milliseconds)?")
+                steps = raw_input("How many steps? ")
+                rotate(float(delay) / 1000.0, int(steps))
+        except KeyboardInterrupt:
+            off()
 
